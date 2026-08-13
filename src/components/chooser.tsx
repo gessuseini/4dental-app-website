@@ -31,14 +31,14 @@ export function Chooser() {
               alt=""
               width={88}
               height={88}
-              className="relative z-10 h-[4.25rem] w-[4.25rem] rounded-[1.15rem] sm:h-[5.25rem] sm:w-[5.25rem] sm:rounded-[1.35rem]"
+              className="relative z-10 h-[4.25rem] w-[4.25rem] sm:h-[5.25rem] sm:w-[5.25rem]"
               priority
               quality={100}
               unoptimized
             />
             {!reduceMotion && (
               <span
-                className="absolute inset-0 rounded-[1.15rem] blur-2xl sm:rounded-[1.35rem]"
+                className="absolute inset-0 rounded-full blur-2xl"
                 style={{
                   background:
                     "linear-gradient(135deg, var(--clinic) 0%, var(--lab) 100%)",
@@ -52,7 +52,12 @@ export function Chooser() {
           <h1 className="font-display text-[clamp(2.6rem,10vw,5rem)] font-extrabold leading-[0.92] tracking-tighter text-foreground">
             {siteConfig.name}
           </h1>
-          <p className="mt-4 text-base text-muted sm:text-lg">{siteConfig.tagline}</p>
+          <p className="mt-3 max-w-md text-sm leading-relaxed text-muted sm:mt-4 sm:text-[0.95rem]">
+            {siteConfig.intro}
+          </p>
+          <p className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-foreground/40">
+            {siteConfig.tagline}
+          </p>
         </motion.div>
 
         <div className="grid w-full gap-4 sm:grid-cols-2 sm:gap-5">

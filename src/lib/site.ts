@@ -2,6 +2,8 @@ export const siteConfig = {
   name: "4Dental.app",
   domain: process.env.NEXT_PUBLIC_SITE_DOMAIN || "4dental.app",
   tagline: "Choose your product",
+  intro:
+    "Two apps under one brand — Clinic for dentists, Lab for technicians. Pick the one that fits your work.",
   description:
     "Enter 4Dental Clinic or 4Dental Lab — management software for dental clinics and laboratories.",
   logo: "/icon.png",
