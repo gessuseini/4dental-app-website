@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+:root {
+  --clinic: #0d9f6e;
+  --clinic-light: #34d399;
+  --clinic-dark: #047857;
+  --clinic-accent: #0e7490;
+  --lab: #6b4eaa;
+  --lab-light: #9b7dd4;
+  --lab-dark: #4a3680;
+  --lab-accent: #8b6bc7;
+  --background: #f3f5f7;
+  --foreground: #0e1218;
+  --muted: rgba(14, 18, 24, 0.55);
+  --surface: rgba(255, 255, 255, 0.55);
+  --border: rgba(14, 18, 24, 0.1);
+  --grid-line: rgba(14, 18, 24, 0.06);
+  --noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-clinic: var(--clinic);
+  --color-clinic-light: var(--clinic-light);
+  --color-clinic-dark: var(--clinic-dark);
+  --color-clinic-accent: var(--clinic-accent);
+  --color-lab: var(--lab);
+  --color-lab-light: var(--lab-light);
+  --color-lab-dark: var(--lab-dark);
+  --color-lab-accent: var(--lab-accent);
+  --font-sans: var(--font-manrope);
+  --font-display: var(--font-sora), var(--font-manrope);
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  letter-spacing: -0.011em;
+}
+
+.font-display {
+  letter-spacing: -0.04em;
+}
+
+body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  opacity: 0.35;
+  background-image: var(--noise);
+  mix-blend-mode: overlay;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--clinic) 35%, var(--lab) 35%);
+  color: var(--foreground);
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@keyframes grid-drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(48px, 48px, 0);
+  }
+}
+
+@keyframes pulse-ring {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.08);
+  }
+}
+
+.animate-grid-drift {
+  animation: grid-drift 20s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  body::before {
+    display: none;
+  }
+}
