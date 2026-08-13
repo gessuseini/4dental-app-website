@@ -20,14 +20,35 @@ export function Chooser() {
 
       <div className="relative z-10 flex w-full max-w-4xl flex-col items-center">
         <motion.div
-          className="mb-10 text-center sm:mb-12"
+          className="mb-10 flex flex-col items-center text-center sm:mb-12"
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduceMotion ? 0 : 0.45, ease }}
         >
-          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/45 sm:text-[11px]">
-            Management software
-          </p>
+          <span className="relative mb-5 sm:mb-6">
+            <Image
+              src={siteConfig.logo}
+              alt=""
+              width={88}
+              height={88}
+              className="relative z-10 h-[4.25rem] w-[4.25rem] rounded-[1.15rem] sm:h-[5.25rem] sm:w-[5.25rem] sm:rounded-[1.35rem]"
+              priority
+              quality={100}
+              unoptimized
+            />
+            {!reduceMotion && (
+              <span
+                className="absolute inset-0 rounded-[1.15rem] blur-2xl sm:rounded-[1.35rem]"
+                style={{
+                  background:
+                    "linear-gradient(135deg, var(--clinic) 0%, var(--lab) 100%)",
+                  opacity: 0.32,
+                  animation: "pulse-ring 3s ease-in-out infinite",
+                }}
+                aria-hidden="true"
+              />
+            )}
+          </span>
           <h1 className="font-display text-[clamp(2.6rem,10vw,5rem)] font-extrabold leading-[0.92] tracking-tighter text-foreground">
             {siteConfig.name}
           </h1>
