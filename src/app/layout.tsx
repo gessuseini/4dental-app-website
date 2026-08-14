@@ -53,8 +53,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${manrope.variable} ${sora.variable} h-full`}>
-      <body className="min-h-full bg-background font-sans text-foreground antialiased">{children}</body>
+    <html lang="en" className={`${manrope.variable} ${sora.variable}`}>
+      <body className="min-h-dvh bg-background font-sans text-foreground antialiased">{children}</body>
     </html>
   );
 }
