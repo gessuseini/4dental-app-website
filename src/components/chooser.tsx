@@ -15,7 +15,7 @@ export function Chooser() {
   const reduceMotion = usePrefersReducedMotion();
 
   return (
-    <main className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 py-10 sm:px-8">
+    <main className="relative flex min-h-dvh flex-col items-center justify-center overflow-x-hidden px-4 pt-10 pb-[calc(6rem+env(safe-area-inset-bottom,0px))] sm:px-8 sm:pb-10">
       <AmbientBg />
 
       <div className="relative z-10 flex w-full max-w-4xl flex-col items-center">
