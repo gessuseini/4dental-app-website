@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope, Sora } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
@@ -54,7 +55,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${manrope.variable} ${sora.variable}`}>
-      <body className="min-h-dvh bg-background font-sans text-foreground antialiased">{children}</body>
+      <body className="min-h-dvh bg-background font-sans text-foreground antialiased">
+        {children}
+        <Toaster richColors position="top-right" />
+      </body>
     </html>
   );
 }

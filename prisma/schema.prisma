@@ -1,0 +1,128 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id                 String    @id @default(cuid())
+  email              String    @unique
+  passwordHash       String
+  name               String
+  mustChangePassword Boolean   @default(true)
+  lastLoginAt        DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  auditLogs          AuditLog[]
+}
+
+model Customer {
+  id               String    @id @default(cuid())
+  email            String    @unique
+  name             String?
+  paddleCustomerId String?   @unique
+  country          String?
+  locale           String?
+  notes            String?
+  rawJson          String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  payments         Payment[]
+  licenses         License[]
+}
+
+model Payment {
+  id                  String   @id @default(cuid())
+  paddleTransactionId String   @unique
+  product             String
+  amount              String?
+  currency            String?
+  status              String
+  lastEventType       String?
+  collectionMode      String?
+  origin              String?
+  invoiceNumber       String?
+  paymentMethod       String?
+  cardBrand           String?
+  cardLast4           String?
+  failureCode         String?
+  failureReason       String?
+  customerCountry     String?
+  tax                 String?
+  subtotal            String?
+  discount            String?
+  earnings            String?
+  billedAt            DateTime?
+  customerId          String?
+  customer            Customer? @relation(fields: [customerId], references: [id])
+  rawJson             String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  licenses            License[]
+
+  @@index([product])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model License {
+  id             String    @id @default(cuid())
+  key            String    @unique
+  activationKey  String?   @unique
+  product        String
+  status         String    @default("pending_hwid")
+  licenseType    String    @default("lifetime")
+  userName       String?
+  customerId     String?
+  customer       Customer? @relation(fields: [customerId], references: [id])
+  paymentId      String?
+  payment        Payment?  @relation(fields: [paymentId], references: [id])
+  hwid           String?
+  activatedAt    DateTime?
+  expiresAt      DateTime?
+  notes          String?
+  licenseEmailSentAt DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([product])
+  @@index([status])
+  @@index([customerId])
+}
+
+model AuditLog {
+  id        String     @id @default(cuid())
+  adminId   String?
+  admin     AdminUser? @relation(fields: [adminId], references: [id])
+  action    String
+  meta      String?
+  ip        String?
+  createdAt DateTime   @default(now())
+
+  @@index([createdAt])
+  @@index([action])
+}
+
+model CheckoutIntent {
+  id         String    @id @default(cuid())
+  product    String
+  status     String    @default("open")
+  txnId      String?
+  createdAt  DateTime  @default(now())
+  consumedAt DateTime?
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+model WebhookEvent {
+  id          String   @id @default(cuid())
+  eventId     String   @unique
+  eventType   String
+  processed   Boolean  @default(false)
+  payloadJson String?
+  createdAt   DateTime @default(now())
+}
